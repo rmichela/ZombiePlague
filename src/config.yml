@@ -1,0 +1,7 @@
+damagePerTick: 1
+maxDamageTokens: 8
+damageCycleSeconds: 90
+biteString: A zombie has bitten you
+healString: You feel less ill
+cureString: You have been cured of the zombie plague
+harmString: You recoil in pain as the zombie plague spreads through your body
