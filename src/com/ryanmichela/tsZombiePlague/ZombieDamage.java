@@ -106,8 +106,11 @@ public class ZombieDamage {
 				if(ShouldApply(kvp.getValue()))
 				{
 					Player player = plugin.getServer().getPlayer(kvp.getKey());
-					player.damage(plugin.getConfig().getInt("damagePerTick"));
-					player.sendMessage(plugin.getConfig().getString("harmString"));
+					if(player != null)
+					{
+						player.damage(plugin.getConfig().getInt("damagePerTick"));
+						player.sendMessage(plugin.getConfig().getString("harmString"));
+					}
 				}
 			}
 		}	
