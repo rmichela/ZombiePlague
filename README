@@ -1,0 +1,73 @@
+ ______                   _      _        ______  _                            
+|___  /                  | |    (_)       | ___ \| |                           
+   / /   ___   _ __ ___  | |__   _   ___  | |_/ /| |  __ _   __ _  _   _   ___ 
+  / /   / _ \ | '_ ` _ \ | '_ \ | | / _ \ |  __/ | | / _` | / _` || | | | / _ \
+./ /___| (_) || | | | | || |_) || ||  __/ | |    | || (_| || (_| || |_| ||  __/
+\_____/ \___/ |_| |_| |_||_.__/ |_| \___| \_|    |_| \__,_| \__, | \__,_| \___|
+                                                             __/ |             
+                                                            |___/              
+                                                            
+===== Overview =====
+
+Zombie plague is a plugin that simulates a zombie apocalypse. Players who are
+bitten by a zombie contract a point of zombie damage for each bite. Zombie
+damage continues to deal damage over time until healed by eating cake. If the
+player dies from zombie damage, a zombie spawns where they died.
+
+==== Back Story ====
+Day 22: Jenkins has fallen gravely ill. While exploring a nearby cave in search
+of resources to illuminate our hovel, he was assaulted by what he described as
+"a rotting mass of bones and flesh that reeked of death." 
+
+According to his account, Jenkins brandished his sword and struck down the beast 
+but not before receiving a terrible bite to the forearm. Since his injury two 
+days ago, Jenkins has developed a terrible fever and moans from the pain. The 
+rest of the party is getting restless. We haven't left the encampment since his 
+injury for fear of encountering another creature. We can only hope for a speedy 
+recovery.
+
+
+Day 25: I cannot begin to describe my sense of loss. First Jenkins, and now
+Prattwit! I'll do my best to recount the past eighteen hours but I panic and
+chaos may have mottled the details.
+
+At 9:25 this morning Jenkins was pronounced dead - succumbed to his injuries
+or so we thought. With somber hearts we began the internment but something
+went very wrong. Jenkins was not dead! However, our elation was cut brutally
+short when we realized that the animated corpse rising before us was only
+superficially Jenkins. What shred of humanity was left in it died in the night.
+
+Before we could react, Prattwit was torn limb from limb from the groaning beast!
+The horror! I had known Prattwit since childhood. We managed to seal the beast
+in the antechamber using a stack of lumber and then retreated to the safety of
+the second floor. It's still down there - moaning. I do not know what to do.
+
+
+Day 35: We had a tremendous scientific breakthrough today. I've been
+experimenting with the materials of this world and have discovered a possible
+cure to the pox that befell Jenkins and Prattwit. After injecting the Prattwit
+monster with a slurry of milk, eggs, sugar and wheat, I witnessed for the first
+time a regression of the symptoms. For a moment I saw the tormented eyes of a
+man behind the rotting death-mask of the monster. Then death took it. I believe
+with some refinement I can work this concoction into a viable antidote to the
+monster plague!
+
+
+Day 37: Success! After eleven trials I have found that in the right proportions
+the monster antidote can be molded into a brick for safe storage, transport,
+and consumption. The Congealed Antidote K Extract, or CAKE for short has proven
+successful in initial trials but I found it has a weakness. Once unpacked from
+its box, the mold is too fragile for further transport and must be consumed
+on the spot. Any attempt to move the CAKE has destroyed the CAKE. I will
+continue to refine the recipe. We shall no longer fear the darkness!
+
+=== Configuration ===
+damagePerTick: How many points of damage to do each damage tick
+maxDamageTokens: The maximum number of zombie bites a player can contract
+damageCycleSeconds: The number of seconds in a damage cycle
+
+
+biteString: The text to display when a player is bitten
+healString: The text to display when a player is partially healed of bites
+cureString: The text to display when a player is cured of zombie plague
+harmString: The text to display when a player takes zombie plague damage

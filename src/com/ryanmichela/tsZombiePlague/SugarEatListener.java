@@ -36,11 +36,11 @@ public class SugarEatListener extends PlayerListener {
 			damageTracker.reduceDamage(event.getPlayer());
 		}
 		
-		if(event.getAction() == Action.RIGHT_CLICK_AIR  && event.getItem().getType() == Material.COOKIE)
-		{
-			System.out.println("Ate a cookie");
-			damageTracker.reduceDamage(event.getPlayer());
-		}
+//		if(event.getAction() == Action.RIGHT_CLICK_AIR  && event.getItem().getType() == Material.COOKIE)
+//		{
+//			System.out.println("Ate a cookie");
+//			damageTracker.reduceDamage(event.getPlayer());
+//		}
 	}
 
 }

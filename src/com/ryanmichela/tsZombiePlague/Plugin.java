@@ -15,6 +15,10 @@
 
 package com.ryanmichela.tsZombiePlague;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,10 +32,18 @@ public class Plugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// create the plugin directory if it does not exist
-//		if(!getDataFolder().exists())
-//		{
-//			getDataFolder().mkdirs();
-//		}
+		if(!getDataFolder().exists())
+		{
+			try
+			{
+				getDataFolder().mkdirs();
+				((YamlConfiguration)getConfig().getDefaults()).save(getDataFolder().getPath() + "/config.yml");
+			}
+			catch(IOException ex)
+			{
+				getServer().getLogger().log(Level.SEVERE, "[Zombie Plague] Failed to initialize configuration! Falling back to defaults.", ex);
+			}
+		}
 
 		getServer().getLogger().info("[Zombie Plague] Version " + getDescription().getVersion());
 		
