@@ -15,12 +15,6 @@
 
 package com.ryanmichela.tsZombiePlague;
 
-import java.io.IOException;
-import java.util.logging.Level;
-
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Plugin extends JavaPlugin {
@@ -34,31 +28,22 @@ public class Plugin extends JavaPlugin {
 		// create the plugin directory if it does not exist
 		if(!getDataFolder().exists())
 		{
-			try
-			{
-				getDataFolder().mkdirs();
-				((YamlConfiguration)getConfig().getDefaults()).save(getDataFolder().getPath() + "/config.yml");
-			}
-			catch(IOException ex)
-			{
-				getServer().getLogger().log(Level.SEVERE, "[Zombie Plague] Failed to initialize configuration! Falling back to defaults.", ex);
-			}
+            getDataFolder().mkdirs();
+            saveDefaultConfig();
 		}
-
-		getServer().getLogger().info("[Zombie Plague] Version " + getDescription().getVersion());
 		
 		// start the damage tracker
 		damageTracker = new ZombieDamage(this);
 		
 		// register event listeners
 		ZombieDamageListener zdl = new ZombieDamageListener(damageTracker);
-		getServer().getPluginManager().registerEvent(Type.ENTITY_DAMAGE, zdl, Priority.Normal, this);
+		getServer().getPluginManager().registerEvents(zdl, this);
 		
 		PlayerDeathListener pdl = new PlayerDeathListener(damageTracker);
-		getServer().getPluginManager().registerEvent(Type.ENTITY_DEATH, pdl, Priority.Normal, this);
+		getServer().getPluginManager().registerEvents(pdl, this);
 		
 		SugarEatListener cel = new SugarEatListener(damageTracker);
-		getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT, cel, Priority.Normal, this);
+		getServer().getPluginManager().registerEvents(cel, this);
 	}
 	
 	@Override

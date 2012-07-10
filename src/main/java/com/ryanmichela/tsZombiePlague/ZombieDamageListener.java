@@ -18,11 +18,11 @@ package com.ryanmichela.tsZombiePlague;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityListener;
 
-public class ZombieDamageListener extends EntityListener {
+public class ZombieDamageListener implements Listener {
 
 	private ZombieDamage damageTracker;
 	
@@ -30,8 +30,7 @@ public class ZombieDamageListener extends EntityListener {
 	{
 		this.damageTracker = damageTracker;
 	}
-	
-	@Override
+
 	public void onEntityDamage(EntityDamageEvent event) {
 		if(event instanceof EntityDamageByEntityEvent)
 		{

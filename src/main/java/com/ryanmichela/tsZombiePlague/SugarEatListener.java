@@ -15,30 +15,24 @@
 
 package com.ryanmichela.tsZombiePlague;
 
-import org.bukkit.entity.CreatureType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityListener;
+import org.bukkit.Material;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PlayerDeathListener extends EntityListener {
+public class SugarEatListener implements Listener {
 
 	private ZombieDamage damageTracker;
 	
-	public PlayerDeathListener(ZombieDamage damageTracker)
+	public SugarEatListener(ZombieDamage damageTracker)
 	{
 		this.damageTracker = damageTracker;
-	}
-	
-	@Override
-	public void onEntityDeath(EntityDeathEvent event) {
-		if(event.getEntity() instanceof Player)
+	}	
+
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasBlock() && event.getClickedBlock().getType() == Material.CAKE_BLOCK)
 		{
-			Player player = (Player)event.getEntity();
-			if(damageTracker.isPlayerInfected(player))
-			{
-				player.getWorld().spawnCreature(player.getLocation(), CreatureType.ZOMBIE);
-			}
-			damageTracker.ClearDamage(player);			
+			damageTracker.reduceDamage(event.getPlayer());
 		}
 	}
 
