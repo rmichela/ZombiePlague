@@ -23,24 +23,21 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class PlayerDeathListener implements Listener {
 
-	private ZombieDamage damageTracker;
-	
-	public PlayerDeathListener(ZombieDamage damageTracker)
-	{
-		this.damageTracker = damageTracker;
-	}
+    private ZombieDamage damageTracker;
+
+    public PlayerDeathListener(ZombieDamage damageTracker) {
+        this.damageTracker = damageTracker;
+    }
 
     @EventHandler
-	public void onEntityDeath(EntityDeathEvent event) {
-		if(event.getEntity() instanceof Player)
-		{
-			Player player = (Player)event.getEntity();
-			if(damageTracker.isPlayerInfected(player))
-			{
-				player.getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
-			}
-			damageTracker.ClearDamage(player);			
-		}
-	}
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            if (damageTracker.isPlayerInfected(player)) {
+                player.getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
+            }
+            damageTracker.ClearDamage(player);
+        }
+    }
 
 }

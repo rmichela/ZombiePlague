@@ -28,31 +28,27 @@ import java.util.Random;
 public class ZombieDamageListener implements Listener {
 
     private Plugin plugin;
-	private ZombieDamage damageTracker;
+    private ZombieDamage damageTracker;
     private Random r = new Random();
-	
-	public ZombieDamageListener(ZombieDamage damageTracker, Plugin plugin)
-	{
-		this.damageTracker = damageTracker;
+
+    public ZombieDamageListener(ZombieDamage damageTracker, Plugin plugin) {
+        this.damageTracker = damageTracker;
         this.plugin = plugin;
-	}
+    }
 
     @EventHandler
-	public void onEntityDamage(EntityDamageEvent event) {
-		if(event instanceof EntityDamageByEntityEvent)
-		{
-			Entity damager = ((EntityDamageByEntityEvent)event).getDamager();
-			Entity damagee = ((EntityDamageByEntityEvent)event).getEntity();
-			if(damager instanceof Zombie && damagee instanceof Player)
-			{
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event instanceof EntityDamageByEntityEvent) {
+            Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
+            Entity damagee = ((EntityDamageByEntityEvent) event).getEntity();
+            if (damager instanceof Zombie && damagee instanceof Player) {
                 if (r.nextInt(100) + 1 <= plugin.getConfig().getInt("infectionChancePercent")) {
                     // A player has been damaged by a zombie
-                    damageTracker.AddDamage((Player)damagee);
+                    damageTracker.AddDamage((Player) damagee);
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 
-	
 
 }

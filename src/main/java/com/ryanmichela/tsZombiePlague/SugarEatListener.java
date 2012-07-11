@@ -16,28 +16,45 @@
 package com.ryanmichela.tsZombiePlague;
 
 import org.bukkit.Material;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemBreakEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 
 public class SugarEatListener implements Listener {
 
-	private ZombieDamage damageTracker;
-	
-	public SugarEatListener(ZombieDamage damageTracker)
-	{
-		this.damageTracker = damageTracker;
-	}	
+    private ZombieDamage damageTracker;
+    private Plugin plugin;
+
+    public SugarEatListener(ZombieDamage damageTracker, Plugin plugin) {
+        this.damageTracker = damageTracker;
+        this.plugin = plugin;
+    }
 
     @EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasBlock() &&
-           event.getClickedBlock().getType() == Material.CAKE_BLOCK &&
-           event.getPlayer().getFoodLevel() < 20)
-		{
-			damageTracker.reduceDamage(event.getPlayer());
-		}
-	}
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        int antidoteId = plugin.getConfig().getInt("antidoteId");
 
+        // First check to see if the player has eaten cake
+        if (antidoteId == Material.CAKE_BLOCK.getId() &&
+                event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasBlock() &&
+                event.getClickedBlock().getType() == Material.CAKE_BLOCK &&
+                event.getPlayer().getFoodLevel() < 20) {
+            damageTracker.reduceDamage(event.getPlayer());
+            return;
+        }
+
+        // Now check to see if the player has eaten an edible item
+        if (antidoteId == event.getItem().getTypeId() &&
+                event.getItem().getType().isEdible() &&
+                (event.getAction() == Action.RIGHT_CLICK_AIR ||
+                event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+            event.setUseItemInHand(Event.Result.ALLOW); //Force the item to be eaten?
+            damageTracker.reduceDamage(event.getPlayer());
+            return;
+        }
+    }
 }

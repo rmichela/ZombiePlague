@@ -66,6 +66,7 @@ damagePerTick: How many points of damage to do each damage cycle
 maxDamageTokens: The maximum number of zombie bites a player can contract
 damageCycleSeconds: The number of seconds in a damage cycle
 infectionChancePercent: The percent chance of a zombie attack infecting the player
+antidoteId: The block of the antidote. Must be eaten. Default 92 - Cake Block
 
 biteString: The text to display when a player is bitten
 healString: The text to display when a player is partially healed of bites

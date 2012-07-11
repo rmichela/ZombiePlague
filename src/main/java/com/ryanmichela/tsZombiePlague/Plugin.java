@@ -19,36 +19,34 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Plugin extends JavaPlugin {
 
-	
-	
-	private ZombieDamage damageTracker;
 
-	@Override
-	public void onEnable() {
-		// create the plugin directory if it does not exist
-		if(!getDataFolder().exists())
-		{
+    private ZombieDamage damageTracker;
+
+    @Override
+    public void onEnable() {
+        // create the plugin directory if it does not exist
+        if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
             saveDefaultConfig();
-		}
-		
-		// start the damage tracker
-		damageTracker = new ZombieDamage(this);
-		
-		// register event listeners
-		ZombieDamageListener zdl = new ZombieDamageListener(damageTracker, this);
-		getServer().getPluginManager().registerEvents(zdl, this);
-		
-		PlayerDeathListener pdl = new PlayerDeathListener(damageTracker);
-		getServer().getPluginManager().registerEvents(pdl, this);
-		
-		SugarEatListener cel = new SugarEatListener(damageTracker);
-		getServer().getPluginManager().registerEvents(cel, this);
-	}
-	
-	@Override
-	public void onDisable() {
-		getServer().getScheduler().cancelTasks(this);
-	}
+        }
+
+        // start the damage tracker
+        damageTracker = new ZombieDamage(this);
+
+        // register event listeners
+        ZombieDamageListener zdl = new ZombieDamageListener(damageTracker, this);
+        getServer().getPluginManager().registerEvents(zdl, this);
+
+        PlayerDeathListener pdl = new PlayerDeathListener(damageTracker);
+        getServer().getPluginManager().registerEvents(pdl, this);
+
+        SugarEatListener cel = new SugarEatListener(damageTracker, this);
+        getServer().getPluginManager().registerEvents(cel, this);
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getScheduler().cancelTasks(this);
+    }
 
 }
