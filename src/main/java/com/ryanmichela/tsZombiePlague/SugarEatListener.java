@@ -32,7 +32,9 @@ public class SugarEatListener implements Listener {
 
     @EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasBlock() && event.getClickedBlock().getType() == Material.CAKE_BLOCK)
+		if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasBlock() &&
+           event.getClickedBlock().getType() == Material.CAKE_BLOCK &&
+           event.getPlayer().getFoodLevel() < 20)
 		{
 			damageTracker.reduceDamage(event.getPlayer());
 		}

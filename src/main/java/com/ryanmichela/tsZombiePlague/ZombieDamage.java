@@ -113,7 +113,7 @@ public class ZombieDamage {
 					{
 						int damagePerTick = plugin.getConfig().getInt("damagePerTick");
                         player.damage(damagePerTick);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (plugin.getConfig().getInt("damageCycleSeconds") + 1) * 20, 0));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (plugin.getConfig().getInt("damageCycleSeconds") - 1) * 20, 0));
                         player.setFoodLevel(player.getFoodLevel() - damagePerTick);
                         player.setSaturation(0);
 						player.sendMessage(plugin.getConfig().getString("harmString"));
