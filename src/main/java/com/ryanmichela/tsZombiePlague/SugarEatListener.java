@@ -16,18 +16,25 @@
 package com.ryanmichela.tsZombiePlague;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SugarEatListener implements Listener {
 
     private ZombieDamage damageTracker;
     private Plugin plugin;
+    private Map<String, Boolean> eaters = new HashMap<String, Boolean>();
 
     public SugarEatListener(ZombieDamage damageTracker, Plugin plugin) {
         this.damageTracker = damageTracker;
@@ -52,9 +59,30 @@ public class SugarEatListener implements Listener {
                 event.getItem().getType().isEdible() &&
                 (event.getAction() == Action.RIGHT_CLICK_AIR ||
                 event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-            event.setUseItemInHand(Event.Result.ALLOW); //Force the item to be eaten?
-            damageTracker.reduceDamage(event.getPlayer());
+            eaters.put(event.getPlayer().getName(), Boolean.TRUE);
             return;
+        }
+
+        // Now check to see if the player has eaten an edible item
+        if (antidoteId != event.getItem().getTypeId() &&
+                event.getItem().getType().isEdible() &&
+                (event.getAction() == Action.RIGHT_CLICK_AIR ||
+                event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+            eaters.put(event.getPlayer().getName(), Boolean.FALSE);
+            return;
+        }
+    }
+
+    @EventHandler
+    public void onFoodLevelChangeEvent(FoodLevelChangeEvent event) {
+        Player player = (Player)event.getEntity();
+        if (eaters.containsKey(player.getName())) {
+            int deltaFood = event.getFoodLevel() - player.getFoodLevel();
+            plugin.getLogger().info("delta food - " + deltaFood);
+            if (deltaFood > 0 && (eaters.get(player.getName()) == Boolean.TRUE)) { //player gained food
+                damageTracker.reduceDamage(player);
+                eaters.put(player.getName(), Boolean.FALSE);
+            }
         }
     }
 }
