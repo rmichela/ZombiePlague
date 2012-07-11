@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public class ZombieDamage {
@@ -69,6 +71,7 @@ public class ZombieDamage {
 				if(damage == 0)
 				{
 					p.sendMessage(plugin.getConfig().getString("cureString"));
+                    p.removePotionEffect(PotionEffectType.HUNGER);
 				}
 				else
 				{
@@ -110,6 +113,7 @@ public class ZombieDamage {
 					{
 						int damagePerTick = plugin.getConfig().getInt("damagePerTick");
                         player.damage(damagePerTick);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (plugin.getConfig().getInt("damageCycleSeconds") + 1) * 20, 0));
                         player.setFoodLevel(player.getFoodLevel() - damagePerTick);
                         player.setSaturation(0);
 						player.sendMessage(plugin.getConfig().getString("harmString"));

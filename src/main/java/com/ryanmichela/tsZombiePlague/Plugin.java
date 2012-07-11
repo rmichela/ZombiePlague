@@ -36,7 +36,7 @@ public class Plugin extends JavaPlugin {
 		damageTracker = new ZombieDamage(this);
 		
 		// register event listeners
-		ZombieDamageListener zdl = new ZombieDamageListener(damageTracker);
+		ZombieDamageListener zdl = new ZombieDamageListener(damageTracker, this);
 		getServer().getPluginManager().registerEvents(zdl, this);
 		
 		PlayerDeathListener pdl = new PlayerDeathListener(damageTracker);
