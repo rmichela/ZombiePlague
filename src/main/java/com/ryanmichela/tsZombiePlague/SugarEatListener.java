@@ -54,8 +54,9 @@ public class SugarEatListener implements Listener {
             return;
         }
 
-        // Now check to see if the player has eaten an edible item
-        if (antidoteId == event.getItem().getTypeId() &&
+        // If the player has begun to eat an edible item, note it in the eaters collection
+        if (event.getItem() != null &&
+                antidoteId == event.getItem().getTypeId() &&
                 event.getItem().getType().isEdible() &&
                 (event.getAction() == Action.RIGHT_CLICK_AIR ||
                 event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
@@ -63,8 +64,9 @@ public class SugarEatListener implements Listener {
             return;
         }
 
-        // Now check to see if the player has eaten an edible item
-        if (antidoteId != event.getItem().getTypeId() &&
+        // If the player has begun to eat an inedible item, note it in the eaters collection
+        if (event.getItem() != null &&
+                antidoteId != event.getItem().getTypeId() &&
                 event.getItem().getType().isEdible() &&
                 (event.getAction() == Action.RIGHT_CLICK_AIR ||
                 event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
@@ -78,7 +80,6 @@ public class SugarEatListener implements Listener {
         Player player = (Player)event.getEntity();
         if (eaters.containsKey(player.getName())) {
             int deltaFood = event.getFoodLevel() - player.getFoodLevel();
-            plugin.getLogger().info("delta food - " + deltaFood);
             if (deltaFood > 0 && (eaters.get(player.getName()) == Boolean.TRUE)) { //player gained food
                 damageTracker.reduceDamage(player);
                 eaters.put(player.getName(), Boolean.FALSE);
